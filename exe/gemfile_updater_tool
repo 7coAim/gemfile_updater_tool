@@ -2,6 +2,35 @@
 
 $LOAD_PATH.unshift(File.expand_path('../../lib', __FILE__))
 
-require 'gemfile_updater_tool'
+require 'compare_linker'
+require 'optparse'
 
-puts "Version #{GemfileUpdaterTool::VERSION}"
+options = {}
+
+OptionParser.new {|opts|
+  opts.banner = 'Usage: ./bin/gemfile_compare [options]'
+
+  opts.on('-p', '--pull-request ID', 'Pull Request ID') do |id|
+    options[:pull_request] = id.to_i
+  end
+
+  opts.on('-repo', '--repository pixiv/factory', 'Repository pixiv/factory') do |v|
+    options[:repository] = v
+  end
+}.parse!
+
+compare_links = CompareLinker.new(options[:repository], options[:pull_request]).make_compare_links
+
+# Markdown table output
+puts ""
+puts "| gem | diff | check | memo |"
+puts "| --- | --- | --- | --- |"
+
+compare_links.each do |compare_link|
+  compare_info = /^(.+):\s(.+)/.match(compare_link)
+  gem_name = compare_info[1]
+  link = compare_info[2]
+  puts "| #{gem_name} | [compare](#{link}) | :sun_with_face: | xxxxx |"
+end
+
+puts ""
