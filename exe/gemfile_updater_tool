@@ -8,7 +8,7 @@ require 'optparse'
 options = {}
 
 OptionParser.new {|opts|
-  opts.banner = 'Usage: ./bin/gemfile_compare [options]'
+  opts.banner = 'Usage: bundle exec ruby ./exe/gemfile_updater_tool [options]'
 
   opts.on('-p', '--pull-request ID', 'Pull Request ID') do |id|
     options[:pull_request] = id.to_i
@@ -28,8 +28,17 @@ puts "| --- | --- | --- | --- |"
 
 compare_links.each do |compare_link|
   compare_info = /^(.+):\s(.+)/.match(compare_link)
-  gem_name = compare_info[1]
+
+  tmp_gem_name = /gems\/(.+)\)$/.match(compare_info[1])
+
+  if tmp_gem_name.nil?
+    gem_name = compare_info[1]
+  else
+    gem_name = tmp_gem_name[1]
+  end
+
   link = compare_info[2]
+
   puts "| #{gem_name} | [compare](#{link}) | :sun_with_face: | xxxxx |"
 end
 
