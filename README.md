@@ -1,28 +1,69 @@
 # GemfileUpdaterTool
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/gemfile_updater_tool`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
-
-## Installation
-
-Add this line to your application's Gemfile:
-
-```ruby
-gem 'gemfile_updater_tool'
-```
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install gemfile_updater_tool
 
 ## Usage
 
-TODO: Write usage instructions here
+
+
+
+
+
+
+Generate diff of `Gemfile.lock` and Markdown table output
+
+After create pull-request
+
+```
+# Generate access token https://github.com/settings/tokens
+export OCTOKIT_ACCESS_TOKEN=1234567.....
+
+git clone https://github.com/7coAim/gemfile_updater_tool
+cd gemfile_updater_tool
+
+bundle install --path .bundle
+```
+
+
+【ATTENTION】
+```
+.bundle/ruby/2.5.0/gems/compare_linker-1.4.2/lib/compare_linker/lockfile_comparator.rb
+```
+```
+_, owner, gem_name = old_spec.source.uri.match(/github\.com\/([^\/]+)\/([^.]+)/).to_a
+```
+→ Regular expression modified code:
+```
+/github\.com[:\/]([^\/]+)\/([^.]+)/
+```
+
+
+```
+bundle exec ruby ./exe/gemfile_updater_tool --repository owner/repo_name --pull-request XXXX
+```
+XXXX: PR number
+
+
+**output**
+
+Markdown 
+```Markdown
+| gem | diff | check | memo |
+| --- | --- | --- | --- |
+| committee | [compare](https://github.com/interagent/committee/compare/v2.2.0...v2.2.1) | :sun_with_face: | xxxxx |
+| graphql | [compare](https://github.com/rmosolgo/graphql-ruby/compare/v1.8.8...v1.8.10) | :sun_with_face: | xxxxx |
+```
+↓
+
+| gem | diff | check | memo |
+| --- | --- | --- | --- |
+| committee | [compare](https://github.com/interagent/committee/compare/v2.2.0...v2.2.1) | :sun_with_face: | xxxxx |
+| graphql | [compare](https://github.com/rmosolgo/graphql-ruby/compare/v1.8.8...v1.8.10) | :sun_with_face: | xxxxx |
+
+
+
+
+
+
 
 ## Development
 
