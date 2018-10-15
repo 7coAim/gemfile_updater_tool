@@ -29,14 +29,7 @@ puts "| --- | --- | --- | --- |"
 compare_links.each do |compare_link|
   compare_info = /^(.+):\s(.+)/.match(compare_link)
 
-  tmp_gem_name = /gems\/(.+)\)$/.match(compare_info[1])
-
-  if tmp_gem_name.nil?
-    gem_name = compare_info[1]
-  else
-    gem_name = tmp_gem_name[1]
-  end
-
+  gem_name = compare_info[1]
   link = compare_info[2]
 
   puts "| #{gem_name} | [compare](#{link}) | :sun_with_face: | xxxxx |"
