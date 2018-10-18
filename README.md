@@ -25,9 +25,7 @@ bundle install --path .bundle
 
 
 【ATTENTION】
-```
-.bundle/ruby/2.5.0/gems/compare_linker-1.4.2/lib/compare_linker/lockfile_comparator.rb
-```
+`.bundle/ruby/2.5.0/gems/compare_linker-1.4.2/lib/compare_linker/lockfile_comparator.rb`
 ```
 _, owner, gem_name = old_spec.source.uri.match(/github\.com\/([^\/]+)\/([^.]+)/).to_a
 ```
