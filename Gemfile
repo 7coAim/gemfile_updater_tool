@@ -9,3 +9,4 @@ gem 'pry'
 
 gem 'compare_linker'
 
+gem 'mechanize'
