@@ -4,6 +4,32 @@ $LOAD_PATH.unshift(File.expand_path('../../lib', __FILE__))
 
 require 'compare_linker'
 require 'optparse'
+require 'nokogiri'
+require 'open-uri'
+
+def get_changelog_link(url)
+  changelog_markdown_link = ""
+
+  begin
+    charset = nil
+    html = open(url) do |f|
+      charset = f.charset
+      f.read
+    end
+
+    doc = Nokogiri::HTML.parse(html, nil, charset)
+    doc.xpath('//div[@class="file-info"]').each do |node|
+      file_title = node.xpath("a")
+      file_href = node.xpath("a/@href")
+      changelog_markdown_link = changelog_markdown_link << "[#{file_title.text}](#{url}#{file_href.text}) " if file_title.text.include?("CHANGELOG")
+    end
+  rescue => e
+    # puts e
+  end
+
+  changelog_markdown_link
+end
+
 
 options = {}
 
@@ -31,8 +57,8 @@ compare_links.each do |compare_link|
 
   gem_name = compare_info[1]
   link = compare_info[2]
-
-  puts "| #{gem_name} | [compare](#{link}) | :sun_with_face: | xxxxx |"
+  memo_changelog = get_changelog_link(link) if link
+  puts "| #{gem_name} | [compare](#{link}) | :sun_with_face: | #{memo_changelog} |"
 end
 
 puts ""
