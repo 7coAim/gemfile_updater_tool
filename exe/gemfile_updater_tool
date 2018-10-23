@@ -7,21 +7,23 @@ require 'optparse'
 require 'nokogiri'
 require 'open-uri'
 
-def get_changelog_link(url)
+def get_changelog_link(url, file_name_regexps)
   changelog_markdown_link = ""
 
   begin
-    charset = nil
-    html = open(url) do |f|
+    doc = OpenURI.open_uri(url) do |f|
       charset = f.charset
-      f.read
+      html = f.read
+      Nokogiri::HTML.parse(html, nil, charset)
     end
 
-    doc = Nokogiri::HTML.parse(html, nil, charset)
     doc.xpath('//div[@class="file-info"]').each do |node|
       file_title = node.xpath("a")
       file_href = node.xpath("a/@href")
-      changelog_markdown_link = changelog_markdown_link << "[#{file_title.text}](#{url}#{file_href.text}) " if file_title.text.include?("CHANGELOG")
+
+      if file_name_regexps.any? { |file_name_regexp| file_name_regexp.match?(file_title.text) }
+        changelog_markdown_link << "[#{file_title.text}](#{url}#{file_href.text}) "
+      end
     end
   rescue => e
     # puts e
@@ -57,7 +59,10 @@ compare_links.each do |compare_link|
 
   gem_name = compare_info[1]
   link = compare_info[2]
-  memo_changelog = get_changelog_link(link) if link
+
+  file_name_regexps = [/CHANGE/i,/RELEASE/i,/NEWS/i]
+  memo_changelog = get_changelog_link(link, file_name_regexps) if link
+
   puts "| #{gem_name} | [compare](#{link}) | :sun_with_face: | #{memo_changelog} |"
 end
 
