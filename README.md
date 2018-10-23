@@ -47,15 +47,15 @@ Markdown
 ```Markdown
 | gem | diff | check | memo |
 | --- | --- | --- | --- |
-| committee | [compare](https://github.com/interagent/committee/compare/v2.2.0...v2.2.1) | :sun_with_face: | xxxxx |
-| graphql | [compare](https://github.com/rmosolgo/graphql-ruby/compare/v1.8.8...v1.8.10) | :sun_with_face: | xxxxx |
+| committee | [compare](https://github.com/interagent/committee/compare/v2.2.0...v2.2.1) | :sun_with_face: |  |
+| graphql | [compare](https://github.com/rmosolgo/graphql-ruby/compare/v1.8.8...v1.8.10) | :sun_with_face: | [CHANGELOG.md](https://github.com/rmosolgo/graphql-ruby/compare/v1.8.5...v1.8.11#diff-3b4fe2a11be4c1d96160ccb8e67145ab) |
 ```
 ↓
 
 | gem | diff | check | memo |
 | --- | --- | --- | --- |
-| committee | [compare](https://github.com/interagent/committee/compare/v2.2.0...v2.2.1) | :sun_with_face: | xxxxx |
-| graphql | [compare](https://github.com/rmosolgo/graphql-ruby/compare/v1.8.8...v1.8.10) | :sun_with_face: | xxxxx |
+| committee | [compare](https://github.com/interagent/committee/compare/v2.2.0...v2.2.1) | :sun_with_face: |  |
+| graphql | [compare](https://github.com/rmosolgo/graphql-ruby/compare/v1.8.8...v1.8.10) | :sun_with_face: | [CHANGELOG.md](https://github.com/rmosolgo/graphql-ruby/compare/v1.8.5...v1.8.11#diff-3b4fe2a11be4c1d96160ccb8e67145ab) |
 
 
 
